@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 type Lang = 'en' | 'fr';
 const DOWNLOAD_URL = 'https://drive.google.com/uc?export=download&id=1x0EKn-56KEzbmFkhcKEi1tWkKWGmW2P2';
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const asset = (path: string) => `${BASE_PATH}${path}`;
 
 const copy = {
   en: {
@@ -100,7 +102,7 @@ const copy = {
   },
 };
 
-const screenshots = ['/wallborn-combat.png', '/wallborn-board-1.png', '/wallborn-board-2.png'];
+const screenshots = ['/wallborn-combat.png', '/wallborn-board-1.png', '/wallborn-board-2.png'].map(asset);
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>('en');
@@ -116,7 +118,7 @@ export default function Home() {
   return (
     <main>
       <section className="hero" id="top">
-        <img className="hero-art" src="/wallborn-hero.png" alt="" />
+        <img className="hero-art" src={asset('/wallborn-hero.png')} alt="" />
         <div className="hero-shade" />
         <header className="site-header">
           <a className="brand" href="#top" aria-label="Wallborn home"><span>WALL</span>BORN</a>
@@ -137,7 +139,7 @@ export default function Home() {
       </section>
 
       <section className="game-section" id="game">
-        <div className="board-window reveal-frame"><img src="/wallborn-board-2.png" alt={t.galleryAlts[2]} /><div className="window-label">TACTICAL VIEW · SEED 045</div></div>
+        <div className="board-window reveal-frame"><img src={asset('/wallborn-board-2.png')} alt={t.galleryAlts[2]} /><div className="window-label">TACTICAL VIEW · SEED 045</div></div>
         <div className="game-copy">
           <Kicker>{t.gameKicker}</Kicker><h2>{t.gameTitle}</h2><p className="game-one-liner">{t.gameOneLiner}</p><p className="large-copy">{t.gameBody}</p>
           <div className="game-points">{t.gamePoints.map(([title, body], i) => <article key={title}><span>0{i + 1}</span><div><h3>{title}</h3><p>{body}</p></div></article>)}</div>
@@ -152,7 +154,7 @@ export default function Home() {
           <Kicker>{t.enemiesKicker}</Kicker><h2>{t.enemiesTitle}</h2><p className="large-copy">{t.enemiesBody}</p>
           <div className="enemy-list">{t.enemies.map((enemy, index) => <div key={enemy}><span>{String(index + 1).padStart(2, '0')}</span>{enemy}<b>↗</b></div>)}</div>
         </div>
-        <div className="enemy-visual"><img src="/wallborn-combat.png" alt={t.galleryAlts[0]} /><div className="enemy-card"><small>ACT II ADVERSARY</small><strong>THE RAMPART<br />KEEPER</strong><span>RESERVE MASONRY</span></div></div>
+        <div className="enemy-visual"><img src={asset('/wallborn-combat.png')} alt={t.galleryAlts[0]} /><div className="enemy-card"><small>ACT II ADVERSARY</small><strong>THE RAMPART<br />KEEPER</strong><span>RESERVE MASONRY</span></div></div>
       </section>
 
       <section className="gallery-section" id="gallery">
@@ -161,7 +163,7 @@ export default function Home() {
       </section>
 
       <section className="alpha-section">
-        <div className="alpha-art"><img src="/wallborn-hero.png" alt="" /></div>
+        <div className="alpha-art"><img src={asset('/wallborn-hero.png')} alt="" /></div>
         <div className="alpha-copy"><Kicker>{t.alphaKicker}</Kicker><h2>{t.alphaTitle}</h2><p className="large-copy">{t.alphaBody}</p><div className="alpha-notes">{t.alphaNotes.map((note) => <span key={note}>✓ {note}</span>)}</div><DownloadButton label={t.alphaCta} meta={t.downloadMeta} /></div>
       </section>
 

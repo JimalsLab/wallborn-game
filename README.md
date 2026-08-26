@@ -1,15 +1,24 @@
-# Wallborn — site officiel
+# Wallborn — GitHub Pages
 
-Sources du site vitrine bilingue de Wallborn.
+Cette version du site Wallborn est entièrement statique et se déploie gratuitement avec GitHub Pages depuis un dépôt public.
 
-## Contenu
+## Publication rapide
 
-- `app/page.tsx` : contenu anglais/français, liens et structure des sections
-- `app/globals.css` : identité visuelle et responsive
-- `app/layout.tsx` : métadonnées SEO et aperçu social
-- `public/` : captures d’écran, visuel principal, favicon et image Open Graph
+1. Créez un dépôt GitHub public.
+2. Décompressez cette archive et envoyez tous les fichiers à la racine du dépôt.
+3. Dans **Settings → Pages → Build and deployment**, choisissez **GitHub Actions**.
+4. Envoyez une modification sur la branche `main`, ou lancez manuellement le workflow **Deploy Wallborn to GitHub Pages** dans l’onglet **Actions**.
 
-L’archive ne contient pas les dépendances installées, les fichiers de cache, l’historique Git ni les identifiants du précédent hébergement.
+Le site sera disponible à l’adresse `https://VOTRE-COMPTE.github.io/NOM-DU-DEPOT/`. Le workflow configure automatiquement ce sous-chemin.
+
+## Utiliser votre propre domaine
+
+1. Dans **Settings → Secrets and variables → Actions → Variables**, ajoutez une variable nommée `CUSTOM_DOMAIN` contenant uniquement votre domaine, par exemple `wallborn-game.com`.
+2. Dans **Settings → Pages → Custom domain**, saisissez le même domaine.
+3. Configurez chez votre registrar les enregistrements DNS indiqués par GitHub.
+4. Relancez le workflow.
+
+Le workflow crée automatiquement le fichier `CNAME` dans le site publié et retire le sous-chemin du dépôt lorsque cette variable est présente.
 
 ## Lancer le site localement
 
@@ -20,30 +29,12 @@ pnpm install
 pnpm dev
 ```
 
-Ouvrez ensuite l’adresse indiquée dans le terminal.
+## Modifier le site
 
-## Vérifier la version de production
+- Textes anglais et français : `app/page.tsx`
+- Styles : `app/globals.css`
+- Métadonnées et aperçu social : `app/layout.tsx`
+- Images : `public/`
+- Lien de la démo : constante `DOWNLOAD_URL` dans `app/page.tsx`
 
-```bash
-pnpm build
-pnpm start
-```
-
-## Publier sur votre domaine
-
-Ce projet utilise React, Vinext/Vite et le runtime Cloudflare Workers. Vous pouvez le relier à un dépôt Git puis le déployer avec une plateforme compatible avec cette configuration. Ajoutez ensuite votre domaine personnalisé depuis le tableau de bord de votre hébergeur et configurez les enregistrements DNS demandés.
-
-Si votre hébergeur ne prend pas en charge ce runtime, le contenu et les styles restent faciles à adapter dans une application React/Next.js standard.
-
-## Modifier le lien de téléchargement
-
-Le bouton de téléchargement pointe actuellement vers la démo Windows hébergée sur Google Drive. Pour le remplacer, modifiez la constante `DOWNLOAD_URL` au début de `app/page.tsx`.
-
-## Personnalisation rapide
-
-- Textes anglais et français : objet `copy` dans `app/page.tsx`
-- Images : remplacez les fichiers correspondants dans `public/` en gardant les mêmes noms
-- Couleurs, typographie et mise en page : `app/globals.css`
-- Titre, description et image de partage : `app/layout.tsx`
-
-Wallborn est une création indépendante inspirée de Quoridor, sans affiliation avec ses créateurs ou éditeurs.
+Le site ne nécessite ni serveur, ni base de données, ni compte Cloudflare.
